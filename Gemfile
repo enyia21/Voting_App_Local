@@ -12,6 +12,7 @@ gem 'thin'
 gem 'shotgun'
 gem 'rack-flash3'
 gem 'sqlite3'
+gem 'bcrypt'
 
 group :test do 
     gem 'launchy'
