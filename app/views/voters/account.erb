@@ -1,0 +1,18 @@
+<h3><%= "#{@voter.first_name} #{@voter.last_name}" %></h3>
+
+<br><br>
+<div>
+    To create a proposal for voting ballot please click <a href='/proposals/new'>Create Proposal</a>
+</div>
+<br>
+<div>
+    To fill out ballot please click <a href='/<%=@voter.id%>/ballot/'>View or modify Ballot</a>
+</div>
+<br>
+<!-- Edit voter option-->
+<div>
+    If you would like to edit your registration: <a href='/voters/<%=voter.id%>/edit'> Edit Info </a>
+</div>
+<div>
+    <a href="./logout">Log out</a>
+</div>
