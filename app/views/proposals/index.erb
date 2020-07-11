@@ -1,0 +1,22 @@
+<h2>Proposals for Ballots</h2>
+<% Proposal.all.each do |proposal|%>
+<div>
+Proposal Name: <%=proposal.name%>
+</div>
+<br>
+<div>
+Proposal Details: <%=proposal.details%>
+<%end%>
+<br>
+
+<div>
+<a href="/proposals/">View Proposals</a>
+</div>
+<br>
+<div>
+<a href="/voters/account">Return Home</a>
+</div>
+<br>
+<div>
+<a href="/ballots/">Ballot</a>
+</div>

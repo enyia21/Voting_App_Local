@@ -1,0 +1,19 @@
+<h2><%=@voter.first_name%> <%=@voter.last_name%></h2>
+<br>
+<h4><%=@voter.street_address%></h4>
+<h4><%=@voter.city%></h4>
+<h4><%=@voter.state%></h4>
+<h4><%=@voter.zipcode%></h4>
+<br>
+
+<!-- Print Ballot and approval -->
+
+<% if !!@voter.ballot %>
+<h3><%=@voter.ballot.city%></h3>
+<h3><%=@voter.ballot.state%></h3>
+<%end%>
+
+<!-- link to global account -->
+
+Go to your <a href='/voters/account'>account</a>!
+

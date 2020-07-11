@@ -6,13 +6,20 @@
 </div>
 <br>
 <div>
-    To fill out ballot please click <a href='/<%=@voter.id%>/ballot/'>View or modify Ballot</a>
+    To fill out ballot please click <a href='/voters/<%=@voter.id%>/ballot/new'>View or modify Ballot</a>
 </div>
 <br>
-<!-- Edit voter option-->
+
+<!-- Edit voter option -->
 <div>
-    If you would like to edit your registration: <a href='/voters/<%=voter.id%>/edit'> Edit Info </a>
+    If you would like to edit your registration: <a href='/voters/<%=@voter.id%>/edit'>Edit Info </a>
 </div>
+<br>
+<form action="/voters/<%=@voter.id%>" method="post">
+<input id="hidden" type="hidden" name="_method" value="delete">
+<input type="submit" value="delete">
+</form>
+<br><br>
 <div>
     <a href="./logout">Log out</a>
 </div>
