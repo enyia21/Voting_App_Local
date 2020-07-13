@@ -14,7 +14,7 @@ class VoterController < ApplicationController
            end
 
            # verify user_name is unique
-           binding.pry
+
            if Voter.find_by(user_name: params["user_name"])
                 @error_msg = "The username you requested is taken"
                 redirect '/voters/failure'
@@ -35,7 +35,6 @@ class VoterController < ApplicationController
     #--------------------------------------------------------------------------
 
     get '/voters/failure' do
-        binding.pry
         @error_msg = params["error_msg"]
         erb :'/voters/failure'
     end
@@ -45,11 +44,10 @@ class VoterController < ApplicationController
     end
 
     post '/voters/login' do
-        binding.pry
         @voter =Voter.find_by(user_name: params[:user_name])
         
         if !!@voter && !!@voter.authenticate(params[:password])
-            binding.pry
+
             session[:voter_id]=@voter.id
             redirect '/voters/account'
         else
@@ -71,7 +69,6 @@ class VoterController < ApplicationController
     #---------------------------------------Edit Voters-----------------------------------------------
     get '/voters/:id/edit' do
         #check if voter_id is present in session
-        binding.pry
         if !session[:voter_id]
             @error_msg = "Please login to edit your information! "
             redirect '/voters/failure'
@@ -96,7 +93,6 @@ class VoterController < ApplicationController
 
     #---------------------Show Route---------------------------------------------------
     get '/voters/:id' do
-        binding.pry
         @voter = Voter.find(params[:id])
 
         erb :'/voters/show'
@@ -114,14 +110,10 @@ class VoterController < ApplicationController
 
 
     get '/voters/:id/ballot/new' do
-        binding.pry
-        
         redirect '/ballots/new'
     end
 
     get '/voters/:id/proposal/new' do
-        binding.pry
-
         redirect '/proposals/new'
     end
 

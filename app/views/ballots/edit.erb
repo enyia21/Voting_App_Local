@@ -1,0 +1,22 @@
+<form method="post" action="/ballots/<%=@voter.ballot.id%>/edit">
+<input type="hidden" id="hidden" name="_method" value="patch">
+
+<h2><%= @voter.first_name %> <%= @voter.last_name %> Ballot 2020</h2>
+<% @voter.ballot.proposals.each do|proposal| %>
+
+<h3><%=proposal.name%></h3>
+<br>
+
+<p><%=proposal.details%></p>
+<br>
+
+<input type="radio" id="yes" name="proposal_name[<%=proposal.name%>]" value="true" <%="checked" if (proposal.approve? == true) %>>
+<label for="yes">Yes</label>
+<input type="radio" id="no" name="proposal_name[<%=proposal.name%>]" value="false" <%="checked" if (proposal.approve? == false) %>>
+<label for="no">No</label>
+
+<%end%>
+
+<br>
+<input type="submit" value="Submit">
+</form>

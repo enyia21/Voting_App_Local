@@ -1,0 +1,26 @@
+<header><%=@voter.city%> Ballot 2020</header>
+<div>
+<h2><%=@voter.first_name%> <%=@voter.last_name%></h2>
+<h3><%=@voter.street_address%></h3>
+<h3><%=@voter.city%></h3>
+<h3><%=@voter.state%></h3>
+<h3><%=@voter.zipcode%></h3>
+</div>
+
+<%@voter.ballot.proposals.each do |proposal|%>
+<h4>Proposal Name: <%=proposal.name%></h4>
+<p>Proposal Details: <%=proposal.details%></p>
+    <% if proposal.approve? %>
+    <em>Yes</em>
+    <% elsif proposal.approve? == false %>
+    <em>No</em>
+    <% else %>
+    <em>Incomplete</em>
+    <% end %>
+<%end%>
+<br>
+<div>
+    <a href="/ballots/<%=@voter.ballot.id%>/edit">Edit Ballot<a>
+
+    <a href="/voters/account">Return Home</a>
+<div>

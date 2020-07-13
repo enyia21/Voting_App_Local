@@ -34,4 +34,10 @@ class Voter < ActiveRecord::Base
             true
         end
     end
+
+    def self.find_by_location(current_voter)
+        voters_by_state = Voter.all.select{|voter| voter.state == current_voter.state}
+        voters_by_city = voters_by_state.select{|voter| voter.city == current_voter.city}
+        voters_by_city
+    end
 end

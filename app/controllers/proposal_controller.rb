@@ -22,7 +22,6 @@ class ProposalController < ApplicationController
 
     post '/proposals/' do
         #check if ballot exists 
-        binding.pry
         @voter = Voter.find(session[:voter_id])
         if !@voter.ballot
             @voter.ballot = Ballot.new(city: @voter.city, state: @voter.state)
@@ -31,7 +30,6 @@ class ProposalController < ApplicationController
         #check if forms are completed correctly        
         if params["proposal"]["name"].empty? || params["proposal"]["details"].empty?
             redirect '/proposals/new'
-            binding.pry
         end
 
         # if proposal name is found show user the proposal
@@ -45,15 +43,12 @@ class ProposalController < ApplicationController
             @new_proposal = Proposal.new(params["proposal"])
             @new_proposal.save
             @voter.ballot.proposals << @new_proposal
-            binding.pry
-
             redirect "/proposals/#{@new_proposal.id}"
         end
     end
 
     #-----------------------------Show Route---------------------------------
     get '/proposals/:id' do
-        binding.pry
         @proposal = Proposal.find(params[:id])
         erb :'/proposals/show'
     end
@@ -70,7 +65,6 @@ class ProposalController < ApplicationController
         if !@voter.ballot.proposals.find_by(name: @proposal.name)
             redirect "/proposals/new"
         end
-        binding.pry
         erb :"/proposals/edit"
     end
 
