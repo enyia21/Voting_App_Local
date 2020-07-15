@@ -1,0 +1,18 @@
+<table>
+<tr>
+    <th>Name</th>
+    <th>City</th>
+    <th>State</th>
+</tr>
+<%@voters.each do |voter|%>
+<tr>
+    <td><%=voter.first_name%> <%=voter.last_name%></td>
+    <td><%=voter.city%></td>
+    <td><%=voter.state%></td>
+</tr>
+<%end%>
+</table>
+<hr>
+<div>
+<a href="/voters/account">Return Home</a>
+</div>

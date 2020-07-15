@@ -5,6 +5,9 @@ class ProposalController < ApplicationController
 
     #--------------------------------Index----------------------------------------
     get '/proposals/' do
+        if !session[:voter_id]
+            redirect "/voters/login"
+        end
         erb :'/proposals/index'
     end
     #-----------------------------------------------------------------------------
@@ -12,7 +15,7 @@ class ProposalController < ApplicationController
     
     #---------------------------New Action--------------------------------------
     get '/proposals/new' do
-        binding.pry
+        
         if !session[:voter_id]
             # @error_msg = "Please login to make a proposal"
             redirect '/voters/login'
@@ -22,6 +25,7 @@ class ProposalController < ApplicationController
 
     post '/proposals/' do
         #check if ballot exists 
+
         @voter = Voter.find(session[:voter_id])
         if !@voter.ballot
             @voter.ballot = Ballot.new(city: @voter.city, state: @voter.state)
@@ -49,6 +53,9 @@ class ProposalController < ApplicationController
 
     #-----------------------------Show Route---------------------------------
     get '/proposals/:id' do
+        if !session[:voter_id]
+            redirect "/voters/login"
+          end
         @proposal = Proposal.find(params[:id])
         erb :'/proposals/show'
     end
@@ -56,7 +63,9 @@ class ProposalController < ApplicationController
 
     #-----------------------------Edit Route----------------------------------
     get '/proposals/:id/edit' do
-        binding.pry
+        if !session[:voter_id]
+            redirect "/voters/login"
+          end
         #verify that logged in voter can edit proposal
         @voter = Voter.find(session[:voter_id])
         @proposal = Proposal.find(params[:id])

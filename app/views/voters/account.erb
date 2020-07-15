@@ -2,8 +2,8 @@
 
 <br><br>
 <div>
-    <span>To create a proposal for voting ballot please click <a href='/proposals/new'>Create Proposal</a></span>
-    <span> <a href="/proposals/">View Proposals</span>
+    <span>To create a proposal for voting ballot please click <a href='/proposals/new'>Create Proposal</a> or </span>
+    <span> <a href="/proposals/">View Proposals</a></span>
 </div>
 <br>
 <div>
@@ -16,6 +16,8 @@
     If you would like to edit your registration: <a href='/voters/<%=@voter.id%>/edit'>Edit Info </a>
 </div>
 <br>
+<strong>To Delete this Voter Press Here: </strong>
+
 <form action="/voters/<%=@voter.id%>" method="post">
 <input id="hidden" type="hidden" name="_method" value="delete">
 <input type="submit" value="delete">

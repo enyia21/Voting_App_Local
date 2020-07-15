@@ -1,4 +1,17 @@
 class VoterController < ApplicationController
+
+
+    #-----------------------------------Index Voters--------------------------------
+    get '/voters/' do
+        if !session[:voter_id]
+            redirect "/voters/login"
+        end
+
+        @voters = Voter.all
+        erb :"/voters/index"
+    end
+    
+    #-------------------------------------------------------------------------------
     # ------------------------------------  New Voters -----------------------------
     get '/voters/new' do
         erb :'voters/signup'
@@ -16,7 +29,7 @@ class VoterController < ApplicationController
            # verify user_name is unique
 
            if Voter.find_by(user_name: params["user_name"])
-                @error_msg = "The username you requested is taken"
+                session[:error_msg] = "The username you requested is taken"
                 redirect '/voters/failure'
            end
         end
@@ -24,7 +37,7 @@ class VoterController < ApplicationController
         #check whether all fields were input correctly
         @new_voter = Voter.new(params)
         if !@new_voter.is_valid?
-            @error_msg = "Your signup is incomplete"
+            session[:error_msg] = "Your signup is incomplete"
             redirect '/voters/failure'
         end
 
@@ -35,7 +48,8 @@ class VoterController < ApplicationController
     #--------------------------------------------------------------------------
 
     get '/voters/failure' do
-        @error_msg = params["error_msg"]
+        @error_msg = session[:error_msg]
+        session[:error_msg]
         erb :'/voters/failure'
     end
 
@@ -51,7 +65,7 @@ class VoterController < ApplicationController
             session[:voter_id]=@voter.id
             redirect '/voters/account'
         else
-            @error_msg = "Please input a valid username and password!"
+            session[:error_msg] = "Please input a valid username and password!"
             redirect '/voters/failure'
         end
     end
@@ -70,12 +84,12 @@ class VoterController < ApplicationController
     get '/voters/:id/edit' do
         #check if voter_id is present in session
         if !session[:voter_id]
-            @error_msg = "Please login to edit your information! "
+            session[:error_msg] = "Please login to edit your information! "
             redirect '/voters/failure'
         end
         # check if user is attempting to access their own voting information
         if params[:id] != session[:voter_id].to_s
-            @error_msg = "Error with input.  Please try again!"
+            session[:error_msg] = "Error with input.  Please try again!"
             redirect '/voters/failure'
         end
 
@@ -93,8 +107,10 @@ class VoterController < ApplicationController
 
     #---------------------Show Route---------------------------------------------------
     get '/voters/:id' do
+        if !session[:voter_id]
+            redirect "/voters/login"
+        end
         @voter = Voter.find(params[:id])
-
         erb :'/voters/show'
     end
     #-----------------------------------------------------------------------------------

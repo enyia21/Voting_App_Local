@@ -1,12 +1,22 @@
-<h2><%=@voter.city%>,  <%=@voter.state%> Ballot 2020 <h2>
+<h2>Ballots 2020</h2>
 
-<%@voter.ballot.proposals.each do |proposal|%>
-<h3>Proposal Name:  <%= proposal.name %></h3><br>
-<h4>Proposal Details: <%=proposal.details%><h4><br>
-<h4>Precentage Approval = <%=@percent_approval[proposal.name]%>
+<div>
+<table>
+<tr>
+<th>Ballot Number</th>
+<th>User Name</th>
+<th>City</th>
+<th>State</th>
+
+<% @ballots.each do |ballot|%>
+<tr>
+    <td><%=ballot.id%><td>
+    <td><%=ballot.voter.user_name%></td>
+    <td><%=ballot.city%></td>
+    <td><%=ballot.state%></td>
+</tr>   
 <%end%>
-<br>
-<br>
-<h4><a href="/ballots/<%=@voter.ballot.id%>">Your Ballot</a></h4>
-<h4><a href="/voters/account">Your Account</a></h4>
-<h4><a href="/voters/logout">Log out</a></h4>
+</table>
+</div>
+
+<a href='/voters/account'>Return Home</a>

@@ -2,7 +2,10 @@ class Voter < ActiveRecord::Base
     has_one :ballot
     has_many :proposals, through: :ballot
     has_secure_password
-
+    validates :email, uniqueness: true
+    validates :user_name, uniqueness: true
+    validates :drivers_license, uniqueness: true
+    
     def slug
         self.user_name.gsub(/\W/, "-").downcase
     end
