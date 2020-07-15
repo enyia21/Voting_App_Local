@@ -23,7 +23,7 @@ class VoterController < ApplicationController
            # verify drivers_license is unique
            if Voter.all.find{|voter| voter.drivers_license == params["drivers_license"]}
                 session[:error_msg] = "Your drivers license numbers is taken!"
-                erb :'/voters/failure'
+                redirect '/voters/failure'
            end
 
            # verify user_name is unique
@@ -49,7 +49,8 @@ class VoterController < ApplicationController
 
     get '/voters/failure' do
         @error_msg = session[:error_msg]
-        session[:error_msg]
+        # binding.pry
+        session[:error_msg] = nil
         erb :'/voters/failure'
     end
 
