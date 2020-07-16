@@ -3,7 +3,7 @@ class VoterController < ApplicationController
 
     #-----------------------------------Index Voters--------------------------------
     get '/voters/' do
-        if !session[:voter_id]
+        if !logged_in?
             redirect "/voters/login"
         end
 
@@ -72,7 +72,7 @@ class VoterController < ApplicationController
     end
 
     get '/voters/account' do
-        @voter = Voter.find(session[:voter_id])
+        @voter = current_voter
         erb :'/voters/account'
     end
 
@@ -84,7 +84,7 @@ class VoterController < ApplicationController
     #---------------------------------------Edit Voters-----------------------------------------------
     get '/voters/:id/edit' do
         #check if voter_id is present in session
-        if !session[:voter_id]
+        if !logged_in?
             session[:error_msg] = "Please login to edit your information! "
             redirect '/voters/failure'
         end
@@ -108,7 +108,7 @@ class VoterController < ApplicationController
 
     #---------------------Show Route---------------------------------------------------
     get '/voters/:id' do
-        if !session[:voter_id]
+        if !logged_in?
             redirect "/voters/login"
         end
         @voter = Voter.find(params[:id])
